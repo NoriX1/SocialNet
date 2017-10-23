@@ -2,11 +2,14 @@ package commands.impl;
 
 import commands.Command;
 import commands.Receiver;
+import dao.DataDao;
+import dao.impl.DataDaoImpl;
 import model.Network;
 import model.User;
 
 public class ShowAllFriendsCommand implements Command{
     Receiver receiver;
+    DataDao dataDao = new DataDaoImpl();
     public ShowAllFriendsCommand(Receiver receiver){
         this.receiver = receiver;
     }
@@ -18,8 +21,9 @@ public class ShowAllFriendsCommand implements Command{
             System.out.println("You must login before watching a list of friends!");
         }
         else{
+            dataDao.loadFriendListFromBD(receiver, currentUser);
             for (User i : currentUser.getFriendlist()){
-                System.out.print(i.getName()+" "+i.getSurname()+"; ");
+                System.out.print(i.getName()+" "+i.getSurname()+" (id = "+ i.getId()+"); ");
             }
             System.out.println();
             try{Thread.sleep(2000);}catch (InterruptedException e){}

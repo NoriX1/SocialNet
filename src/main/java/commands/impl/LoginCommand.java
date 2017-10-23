@@ -28,7 +28,7 @@ public class LoginCommand implements Command{
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             login = reader.readLine();
             for(User i : userList){
-                if (i.getLogin().equals(login)){
+                if (i.getLogin().toLowerCase().equals(login.toLowerCase())){
                     finded = true;
                     System.out.println("Please, write your password: ");
                     password = reader.readLine();

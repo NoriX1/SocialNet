@@ -2,8 +2,8 @@ package commands.impl;
 
 import commands.Command;
 import commands.Receiver;
-import dao.UserDao;
-import dao.impl.UserDaoImpl;
+import dao.DataDao;
+import dao.impl.DataDaoImpl;
 import model.Message;
 import model.Network;
 import model.User;
@@ -24,7 +24,7 @@ public class SendPublicMessage implements Command {
         Network network = receiver.getNetwork();
         List<User> userList = network.getUserList();
         User currentUser = network.getCurrentUser();
-        UserDao userDao = new UserDaoImpl();
+        DataDao dataDao = new DataDaoImpl();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String mess;
         try {
@@ -35,7 +35,7 @@ public class SendPublicMessage implements Command {
                 mess = reader.readLine();
                 Message message = new Message(currentUser, mess);
                 network.addPublicMessageInList(message);
-                userDao.savePublicMessageToBD(message);
+                dataDao.savePublicMessageToBD(message);
                 System.out.println("Message sent!");
                 try{Thread.sleep(2000);}catch (InterruptedException e){}
 

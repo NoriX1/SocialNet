@@ -2,9 +2,8 @@ import commands.Command;
 import commands.Invoker;
 import commands.Receiver;
 import commands.impl.*;
-import dao.BaseDao;
-import dao.UserDao;
-import dao.impl.UserDaoImpl;
+import dao.DataDao;
+import dao.impl.DataDaoImpl;
 import model.Network;
 
 import java.io.BufferedReader;
@@ -29,9 +28,9 @@ public class Starter {
         Invoker invoker = new Invoker();
         boolean exit = false;
 
-        UserDao userDao = new UserDaoImpl();
-        userDao.createTableIfNotExist();
-        userDao.getAllFromBD(receiver);
+        DataDao dataDao = new DataDaoImpl();
+        dataDao.createTableIfNotExist();
+        dataDao.getAllFromBD(receiver);
 
 
 

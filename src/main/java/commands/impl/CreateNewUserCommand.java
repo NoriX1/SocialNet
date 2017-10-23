@@ -2,8 +2,8 @@ package commands.impl;
 
 import commands.Command;
 import commands.Receiver;
-import dao.UserDao;
-import dao.impl.UserDaoImpl;
+import dao.DataDao;
+import dao.impl.DataDaoImpl;
 import model.Network;
 import model.User;
 
@@ -56,8 +56,8 @@ public class CreateNewUserCommand implements Command{
                 System.out.println("Please, write your password: ");
                 password = reader.readLine();
                 User user = new User(network.getNumberOfUsers(),name, surname, age, sex, login, password);
-                UserDao userDao = new UserDaoImpl();
-                userDao.saveUser(user);
+                DataDao dataDao = new DataDaoImpl();
+                dataDao.saveUser(user);
                 network.addUser(user);
                 System.out.println("User is added to the network, number of users in the network: "+network.getNumberOfUsers());
             }
@@ -65,8 +65,8 @@ public class CreateNewUserCommand implements Command{
             {
                 User user = new User(network.getNumberOfUsers(),"Anonymous"+network.getNumberOfUsers());
                 network.addUser(user);
-                UserDao userDao = new UserDaoImpl();
-                userDao.saveUser(user);
+                DataDao dataDao = new DataDaoImpl();
+                dataDao.saveUser(user);
                 System.out.println("User is added to the network, number of users in the network: "+network.getNumberOfUsers());
             }
         } catch (IOException e){}

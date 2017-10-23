@@ -25,7 +25,8 @@ public class ShowAllPrivateMessages implements Command {
             List<Message> privateList = network.getPrivateMessageList();
             for (Message i : privateList){
                 if(currentUser.getName() == i.getTarget().getName()){
-                    System.out.println(i.getOwner().getName()+" " + i.getOwner().getSurname()+" says: "+i.getMessage());
+                    System.out.println(i.getOwner().getName()+" " + i.getOwner().getSurname()+" (id = "
+                            +i.getOwner().getId()+") says: "+i.getMessage());
 
                 }
             }

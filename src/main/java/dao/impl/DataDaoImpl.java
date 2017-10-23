@@ -2,16 +2,15 @@ package dao.impl;
 
 import commands.Receiver;
 import dao.BaseDao;
-import dao.UserDao;
+import dao.DataDao;
 import model.Message;
 import model.Network;
 import model.User;
 
-import java.rmi.RemoteException;
 import java.sql.*;
 import java.util.List;
 
-public class UserDaoImpl extends BaseDao implements UserDao{
+public class DataDaoImpl extends BaseDao implements DataDao {
 
     @Override
     public void createTableIfNotExist(){
@@ -35,6 +34,11 @@ public class UserDaoImpl extends BaseDao implements UserDao{
                     "target INT(11),"+
                     "isPrivate BOOLEAN)";
             statement.execute(createmessagetable);
+
+            String createfriendtable = "CREATE TABLE IF NOT EXISTS friendlist ("+
+                    "who INT(11),"+
+                    "whom INT(11))";
+            statement.execute(createfriendtable);
 
         }catch (SQLException e){
             throw new RuntimeException();
@@ -117,11 +121,6 @@ public class UserDaoImpl extends BaseDao implements UserDao{
     }
 
     @Override
-    public void getAllMessagesFromBD(Receiver receiver){
-        Network network = receiver.getNetwork();
-    }
-
-    @Override
     public void savePublicMessageToBD(Message message){
 
         String sql = "INSERT INTO messages (owner, message, isPrivate) VALUES (?,?,?)";
@@ -159,28 +158,51 @@ public class UserDaoImpl extends BaseDao implements UserDao{
     }
 
     @Override
-    public User getByName(String name) {
-        String sql = "SELECT name, sex FROM user WHERE name = ?";
+    public void saveFriendToFriendlistBD(int who, int whom){
+        String sql = "INSERT INTO friendlist (who, whom) VALUES (?,?)";
         try(Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)
         ){
-
-            statement.setString(1, name);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()){
-                String sex = resultSet.getString("sex");
-
-                User user = new User(name);
-                user.setSex(sex);
-
-                return user;
-            }
-
-            throw new RuntimeException("The gender is not found");
+            statement.setInt(1,who);
+            statement.setInt(2, whom);
+            statement.execute();
+            connection.commit();
 
         }catch (SQLException e){
             throw new RuntimeException();
         }
+    }
+
+    @Override
+    public void loadFriendListFromBD(Receiver receiver , User currentUser){
+        String sql = "SELECT * FROM friendlist WHERE who = (?)";
+        ResultSet resultSet;
+        Network network = receiver.getNetwork();
+        int id;
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, currentUser.getId());
+            resultSet = statement.executeQuery();
+            boolean finded = false;
+            while (resultSet.next()){
+                id = resultSet.getInt(2);
+                for (User i : currentUser.getFriendlist())
+                {
+                    if(i.getId() == id){
+                        finded = true;
+                    }
+                }
+                if (!finded){
+                    for(User i : network.getUserList()){
+                        if (i.getId() == id){
+                            currentUser.addFriend(i);
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+
     }
 }

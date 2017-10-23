@@ -2,6 +2,8 @@ package commands.impl;
 
 import commands.Command;
 import commands.Receiver;
+import dao.DataDao;
+import dao.impl.DataDaoImpl;
 import model.Network;
 import model.User;
 
@@ -20,8 +22,9 @@ public class AddFriendCommand implements Command {
         Network network = receiver.getNetwork();
         List<User> userList = network.getUserList();
         User currentUser = network.getCurrentUser();
+        DataDao dataDao = new DataDaoImpl();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String name;
+        int id;
         boolean finded = false;
         try {
             if (currentUser == null) {
@@ -30,15 +33,16 @@ public class AddFriendCommand implements Command {
                 System.out.println("Users in network: ");
                 for(User i : userList)
                 {
-                    System.out.print(i.getName()+" ");
+                    System.out.print(i.getName()+" "+i.getSurname()+" id="+i.getId()+";");
                 }
                 System.out.println();
-                System.out.println("Enter a name of User (who will be your friend): ");
-                name = reader.readLine();
+                System.out.println("Enter id of User (who will be your friend): ");
+                id =Integer.parseInt(reader.readLine());
                 for(User i : userList) {
-                    if(i.getName().equals(name)) {
+                    if(i.getId() == id) {
                         finded = true;
                         currentUser.addFriend(i);
+                        dataDao.saveFriendToFriendlistBD(currentUser.getId(), i.getId());
                         System.out.println("Friend added!");
                         try{Thread.sleep(2000);}catch (InterruptedException e){}
                         break;
