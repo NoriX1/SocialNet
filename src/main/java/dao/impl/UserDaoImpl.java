@@ -19,11 +19,12 @@ public class UserDaoImpl extends BaseDao implements UserDao{
             Statement statement = connection.createStatement()
         ){
             String createusertable = "CREATE TABLE IF NOT EXISTS users (" +
+                    "id INT(11) PRIMARY KEY," +
                     "name VARCHAR(30)," +
                     "surname VARCHAR(30),"+
                     "age INT(4),"+
                     "sex VARCHAR(7),"+
-                    "login VARCHAR(30),"+
+                    "login VARCHAR(30) UNIQUE,"+
                     "password VARCHAR(30))";
 
             statement.execute(createusertable);
