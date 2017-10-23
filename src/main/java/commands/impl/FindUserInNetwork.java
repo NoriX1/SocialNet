@@ -22,7 +22,7 @@ public class FindUserInNetwork implements Command{
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         boolean finded = false;
         for (User i : network.getUserList()){
-            System.out.print(i.getName()+" "+i.getSurname()+" id="+i.getId()+";");
+            System.out.print(i.getName()+" "+i.getSurname()+" (id="+i.getId()+");");
         }
         System.out.println();
         System.out.println("Enter id of User: ");
