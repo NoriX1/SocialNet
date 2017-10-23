@@ -8,10 +8,10 @@ public abstract class BaseDao {
     private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
 
     public BaseDao(){
-        createTable();
+        createTableIfNotExist();
     }
 
-    protected abstract void createTable();
+    protected abstract void createTableIfNotExist();
 
     public Connection getConnection(){
         try {

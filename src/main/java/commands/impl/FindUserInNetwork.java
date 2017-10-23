@@ -1,5 +1,6 @@
 package commands.impl;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import commands.Command;
 import commands.Receiver;
 import model.Network;
@@ -21,15 +22,16 @@ public class FindUserInNetwork implements Command{
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         boolean finded = false;
         for (User i : network.getUserList()){
-            System.out.print(i.getName()+"; ");
+            System.out.print(i.getName()+" "+i.getSurname()+" id="+i.getId()+";");
         }
         System.out.println();
-        System.out.println("Enter a name of User: ");
+        System.out.println("Enter id of User: ");
         try{
-            String name = reader.readLine();
+            int id  = Integer.parseInt(reader.readLine());
             for(User i : network.getUserList()){
-                if (i.getName().equals(name)){
+                if (i.getId()== id){
                     finded = true;
+                    System.out.println(i.getId());
                     System.out.println(i.getName()+" "+i.getSurname());
                     System.out.println("Age: "+i.getAge());
                     System.out.println("Sex: "+i.getSex());

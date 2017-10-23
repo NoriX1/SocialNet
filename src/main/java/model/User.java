@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+    private int id;
     private String name;
     private String surname;
     private int age;
@@ -17,14 +18,26 @@ public class User {
         this.name = name;
         this.surname = "Undefinded";
         this.age = 0;
-        this.sex = "Undefinded";
+        this.sex = "Empty";
         this.islogged = false;
-        this.login = "";
-        this.password = "";
+        this.login = name;
+        this.password = name;
+        this.islogged = false;
+    }
+    public User(int id, String name){
+        this.id = id;
+        this.name = name;
+        this.surname = "Undefinded";
+        this.age = 0;
+        this.sex = "Empty";
+        this.islogged = false;
+        this.login = name;
+        this.password = name;
         this.islogged = false;
     }
 
-    public User(String name, String surname, int age, String sex, String login, String password){
+    public User(int id, String name, String surname, int age, String sex, String login, String password){
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.age = age;
@@ -96,5 +109,13 @@ public class User {
 
     public void addFriend(User user){
         this.friendlist.add(user);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

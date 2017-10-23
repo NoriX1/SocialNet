@@ -2,6 +2,9 @@ import commands.Command;
 import commands.Invoker;
 import commands.Receiver;
 import commands.impl.*;
+import dao.BaseDao;
+import dao.UserDao;
+import dao.impl.UserDaoImpl;
 import model.Network;
 
 import java.io.BufferedReader;
@@ -25,6 +28,13 @@ public class Starter {
         Command showRatingCommand = new ShowRatingCommand(receiver);
         Invoker invoker = new Invoker();
         boolean exit = false;
+
+        UserDao userDao = new UserDaoImpl();
+        userDao.createTableIfNotExist();
+        userDao.getAllFromBD(receiver);
+
+
+
 
         try{
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
