@@ -101,8 +101,8 @@ public class Starter {
                 }
             } while (!exit);
         }
-        catch (IllegalArgumentException e){}
+        catch (IllegalArgumentException e){
 
-
+        }
     }
 }
