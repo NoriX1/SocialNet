@@ -30,7 +30,7 @@ public class Starter {
 
         DataDao dataDao = new DataDaoImpl();
         dataDao.createTableIfNotExist();
-        dataDao.getAllFromBD(receiver);
+        dataDao.getUsersFromBD(receiver);
 
 
 

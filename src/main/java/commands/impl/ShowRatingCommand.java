@@ -2,6 +2,8 @@ package commands.impl;
 
 import commands.Command;
 import commands.Receiver;
+import dao.DataDao;
+import dao.impl.DataDaoImpl;
 import model.Message;
 import model.Network;
 import services.RatingService;
@@ -16,8 +18,8 @@ public class ShowRatingCommand implements Command{
 
     @Override
     public void execute() {
-        Network network = receiver.getNetwork();
-        List<Message> messageList = network.getPublicMessageList();
+        DataDao dataDao = new DataDaoImpl();
+        List<Message> messageList = dataDao.getPublicMessagesFromBD();
         RatingService ratingService = new RatingService();
         List<String> rating = ratingService.getRating(messageList,ratingService.getWordTop(messageList));
         for (String s : rating){

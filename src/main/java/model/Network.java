@@ -5,9 +5,6 @@ import java.util.List;
 
 public class Network {
     private final List<User> userList = new ArrayList<>();
-    private final List<Message> publicMessageList = new ArrayList<>();
-    private final List<Message> privateMessageList = new ArrayList<>();
-
     private User currentUser;
 
     public void addUser(User user){
@@ -29,16 +26,4 @@ public class Network {
         return currentUser;
     }
 
-    public List<Message> getPublicMessageList() {
-        return publicMessageList;
-    }
-    public void addPublicMessageInList(Message message){
-        publicMessageList.add(message);
-    }
-    public List<Message> getPrivateMessageList() {
-        return privateMessageList;
-    }
-    public void addPrivateMessageInList(Message message){
-        privateMessageList.add(message);
-    }
 }

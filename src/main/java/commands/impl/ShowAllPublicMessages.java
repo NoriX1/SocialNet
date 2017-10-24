@@ -2,6 +2,8 @@ package commands.impl;
 
 import commands.Command;
 import commands.Receiver;
+import dao.DataDao;
+import dao.impl.DataDaoImpl;
 import model.Message;
 import model.Network;
 
@@ -14,8 +16,8 @@ public class ShowAllPublicMessages implements Command {
     }
     @Override
     public void execute() {
-        Network network = receiver.getNetwork();
-        List<Message> ListOfMessages = network.getPublicMessageList();
+        DataDao dataDao = new DataDaoImpl();
+        List<Message> ListOfMessages = dataDao.getPublicMessagesFromBD();
         System.out.println("Public messages: ");
         for(Message i : ListOfMessages){
             System.out.println(i.getOwner().getName() + " " + i.getOwner().getSurname()+" (id = "

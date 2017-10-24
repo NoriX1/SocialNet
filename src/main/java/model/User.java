@@ -47,6 +47,17 @@ public class User {
         this.islogged = false;
     }
 
+    public User(){
+        this.name = "";
+        this.surname = "";
+        this.age = 0;
+        this.sex = "";
+        this.islogged = false;
+        this.login = "";
+        this.password = "";
+        this.islogged = false;
+    }
+
     public String getName() {
         return name;
     }

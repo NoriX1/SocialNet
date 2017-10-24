@@ -6,6 +6,13 @@ public class Message {
     private User target;
     private boolean isPrivate;
 
+    public Message(User owner, String message, User target, Boolean isPrivate) {
+        this.owner = owner;
+        this.message = message;
+        this.target = target;
+        this.isPrivate = isPrivate;
+    }
+
     public Message(User owner, String message, User target) {
         this.owner = owner;
         this.message = message;
