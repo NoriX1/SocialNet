@@ -65,7 +65,6 @@ public class RatingServiceTest {
         resultStrings2.add("Test2 Undefinded:              (Rating = 0)");
         resultStrings2.add("Test1 Undefinded:  (Rating = 0)");
     }
-
     @Test
     public void getWordTopTest(){
         RatingService ratingService = new RatingService();
@@ -76,7 +75,6 @@ public class RatingServiceTest {
             }
         }
     }
-
     @Test
     public void getRatingTest(){
         RatingService ratingService = new RatingService();

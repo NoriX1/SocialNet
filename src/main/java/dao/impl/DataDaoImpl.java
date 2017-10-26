@@ -204,6 +204,7 @@ public class DataDaoImpl extends BaseDao implements DataDao {
         }
     }
 
+    @Override
     public List<Message> getPublicMessagesFromBD(){
         String sql = "SELECT * FROM messages WHERE isprivate = (?)";
         ResultSet resultSet;

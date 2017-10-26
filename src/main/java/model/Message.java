@@ -47,4 +47,26 @@ public class Message {
     public boolean isPrivate() {
         return isPrivate;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Message message1 = (Message) o;
+
+        if (isPrivate != message1.isPrivate) return false;
+        if (!owner.equals(message1.owner)) return false;
+        if (!message.equals(message1.message)) return false;
+        return target.equals(message1.target);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = owner.hashCode();
+        result = 31 * result + message.hashCode();
+        result = 31 * result + target.hashCode();
+        result = 31 * result + (isPrivate ? 1 : 0);
+        return result;
+    }
 }
