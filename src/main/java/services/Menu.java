@@ -44,27 +44,9 @@ public class Menu {
 
 
     public void showMenu(){
-        /*Receiver receiver = new Receiver(new Network());
-        Command createNewUserCommand = new CreateNewUserCommand(receiver);
-        Command loginCommand = new LoginCommand(receiver);
-        Command sendPublicMessage = new SendPublicMessage(receiver);
-        Command sendPrivateMessage = new SendPrivateMessage(receiver);
-        Command addFriendCommand = new AddFriendCommand(receiver);
-        Command showAllFriendsCommand = new ShowAllFriendsCommand(receiver);
-        Command findUserInNetwork = new FindUserInNetwork(receiver);
-        Command showAllPublicMessages = new ShowAllPublicMessages(receiver);
-        Command showAllPrivateMessages = new ShowAllPrivateMessages(receiver);
-        Command showRatingCommand = new ShowRatingCommand(receiver);
-        Invoker invoker = new Invoker();*/
         boolean exit = false;
-
-        //DataDao dataDao = new DataDaoImpl();
         dataDao.createTableIfNotExist();
         dataDao.getUsersFromBD();
-
-
-
-
         try{
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             do {
@@ -80,7 +62,6 @@ public class Menu {
                 System.out.println("8) Show all private messages");
                 System.out.println("9) Show Rating of Messages");
                 System.out.println("10) Exit");
-
                 int i = Integer.parseInt(reader.readLine());
                 switch (i) {
                     case 0:
