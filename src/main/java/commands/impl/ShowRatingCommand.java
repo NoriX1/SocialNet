@@ -18,7 +18,7 @@ public class ShowRatingCommand implements Command{
 
     @Override
     public void execute() {
-        DataDao dataDao = new DataDaoImpl();
+        DataDao dataDao = new DataDaoImpl(receiver);
         List<Message> messageList = dataDao.getPublicMessagesFromBD();
         RatingService ratingService = new RatingService();
         List<String> rating = ratingService.getRating(messageList,ratingService.getWordTop(messageList));

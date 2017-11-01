@@ -16,7 +16,7 @@ public class ShowAllPublicMessages implements Command {
     }
     @Override
     public void execute() {
-        DataDao dataDao = new DataDaoImpl();
+        DataDao dataDao = new DataDaoImpl(receiver);
         List<Message> ListOfMessages = dataDao.getPublicMessagesFromBD();
         System.out.println("Public messages: ");
         for(Message i : ListOfMessages){

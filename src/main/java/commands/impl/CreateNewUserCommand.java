@@ -56,7 +56,7 @@ public class CreateNewUserCommand implements Command{
                 System.out.println("Please, write your password: ");
                 password = reader.readLine();
                 User user = new User(network.getNumberOfUsers(),name, surname, age, sex, login, password);
-                DataDao dataDao = new DataDaoImpl();
+                DataDao dataDao = new DataDaoImpl(receiver);
                 dataDao.saveUser(user);
                 network.addUser(user);
                 System.out.println("User is added to the network, number of users in the network: "+network.getNumberOfUsers());
@@ -65,7 +65,7 @@ public class CreateNewUserCommand implements Command{
             {
                 User user = new User(network.getNumberOfUsers(),"Anonymous"+network.getNumberOfUsers());
                 network.addUser(user);
-                DataDao dataDao = new DataDaoImpl();
+                DataDao dataDao = new DataDaoImpl(receiver);
                 dataDao.saveUser(user);
                 System.out.println("User is added to the network, number of users in the network: "+network.getNumberOfUsers());
             }

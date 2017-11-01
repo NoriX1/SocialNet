@@ -19,7 +19,7 @@ public class ShowAllPrivateMessages implements Command {
     public void execute() {
         Network network = receiver.getNetwork();
         User currentUser = network.getCurrentUser();
-        DataDao dataDao = new DataDaoImpl();
+        DataDao dataDao = new DataDaoImpl(receiver);
         if (currentUser == null){
             System.out.println("You must login before read a private message!");
             try{Thread.sleep(3000);}catch (InterruptedException e){}

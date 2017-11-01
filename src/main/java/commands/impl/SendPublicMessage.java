@@ -24,7 +24,7 @@ public class SendPublicMessage implements Command {
         Network network = receiver.getNetwork();
         List<User> userList = network.getUserList();
         User currentUser = network.getCurrentUser();
-        DataDao dataDao = new DataDaoImpl();
+        DataDao dataDao = new DataDaoImpl(receiver);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String mess;
         try {

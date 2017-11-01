@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataDaoImpl extends BaseDao implements DataDao {
+    private final Receiver receiver;
+
+    public DataDaoImpl(Receiver receiver){
+        this.receiver = receiver;
+    }
 
     @Override
     public void createTableIfNotExist(){
@@ -70,7 +75,7 @@ public class DataDaoImpl extends BaseDao implements DataDao {
     }
 
     @Override
-    public void getUsersFromBD(Receiver receiver){
+    public void getUsersFromBD(){
         Network network = receiver.getNetwork();
         String sql = "SELECT * FROM users";
         ResultSet resultSet;
@@ -142,7 +147,7 @@ public class DataDaoImpl extends BaseDao implements DataDao {
     }
 
     @Override
-    public void loadFriendListFromBD(Receiver receiver , User currentUser){
+    public void loadFriendListFromBD(User currentUser){
         String sql = "SELECT * FROM friendlist WHERE who = (?)";
         ResultSet resultSet;
         Network network = receiver.getNetwork();
