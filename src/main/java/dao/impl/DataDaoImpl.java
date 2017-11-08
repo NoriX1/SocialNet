@@ -6,14 +6,19 @@ import dao.DataDao;
 import model.Message;
 import model.Network;
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class DataDaoImpl extends BaseDao implements DataDao {
     private final Receiver receiver;
 
+    @Autowired
     public DataDaoImpl(Receiver receiver){
         this.receiver = receiver;
     }

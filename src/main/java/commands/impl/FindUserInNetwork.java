@@ -5,13 +5,18 @@ import commands.Command;
 import commands.Receiver;
 import model.Network;
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+@Service
 public class FindUserInNetwork implements Command{
     Receiver receiver;
+
+    @Autowired
     public FindUserInNetwork(Receiver receiver){
         this.receiver = receiver;
     }

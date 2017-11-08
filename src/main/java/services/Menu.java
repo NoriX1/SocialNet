@@ -4,11 +4,14 @@ import commands.Command;
 import commands.Invoker;
 import dao.DataDao;
 import dao.impl.DataDaoImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+@Service
 public class Menu {
     private final Invoker invoker;
     private final Command createNewUserCommand;
@@ -23,6 +26,7 @@ public class Menu {
     private final Command showRatingCommand;
     private final DataDao dataDao;
 
+    @Autowired
     public Menu(Invoker invoker, Command createNewUserCommand, Command loginCommand,
                 Command sendPublicMessage, Command sendPrivateMessage, Command addFriendCommand,
                 Command showAllFriendsCommand, Command findUserInNetwork, Command showAllPublicMessages,

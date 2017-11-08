@@ -7,11 +7,16 @@ import dao.impl.DataDaoImpl;
 import model.Message;
 import model.Network;
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ShowAllPrivateMessages implements Command {
     Receiver receiver;
+
+    @Autowired
     public ShowAllPrivateMessages(Receiver receiver){
         this.receiver = receiver;
     }

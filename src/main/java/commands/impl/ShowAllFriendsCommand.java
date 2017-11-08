@@ -6,9 +6,14 @@ import dao.DataDao;
 import dao.impl.DataDaoImpl;
 import model.Network;
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ShowAllFriendsCommand implements Command{
     private Receiver receiver;
+
+    @Autowired
     public ShowAllFriendsCommand(Receiver receiver){
         this.receiver = receiver;
     }

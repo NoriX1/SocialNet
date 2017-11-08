@@ -6,11 +6,16 @@ import dao.DataDao;
 import dao.impl.DataDaoImpl;
 import model.Message;
 import model.Network;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ShowAllPublicMessages implements Command {
     Receiver receiver;
+
+    @Autowired
     public ShowAllPublicMessages(Receiver receiver){
         this.receiver = receiver;
     }
