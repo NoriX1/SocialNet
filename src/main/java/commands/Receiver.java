@@ -13,9 +13,6 @@ public class Receiver {
         this.network = network;
     }
 
-//    public Receiver(NetworkDao networkDao){
-//        this.network=networkDao.getNetwork();
-//    }
 
     public Network getNetwork() {
         return network;
