@@ -38,7 +38,7 @@
     <!--<bean id = "showAllPublicMessages" class="commands.impl.ShowAllPublicMessages">-->
         <!--<constructor-arg index="0" ref="receiver"></constructor-arg>-->
     <!--</bean>-->
-    <!--<bean id = "showAllPrivateMessages" class="commands.impl.ShowAllPrivateMessages">-->
+    <!--<bean id = "showAllPrivateMessages" class="commands.impl.ShowAllPrivateMessagesCommandCommand">-->
         <!--<constructor-arg index="0" ref="receiver"></constructor-arg>-->
     <!--</bean>-->
     <!--<bean id = "showRatingCommand" class="commands.impl.ShowRatingCommand">-->
