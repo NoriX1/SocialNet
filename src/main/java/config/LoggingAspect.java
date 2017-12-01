@@ -25,7 +25,6 @@ public class LoggingAspect {
         LOG.info("Starting method {} of object {} with arguments {}", joinPoint.getSignature(),
                 joinPoint.getTarget(), Arrays.toString(joinPoint.getArgs()));
         Object s = joinPoint.getTarget();
-        //System.out.println(s);
         Object result = joinPoint.proceed();
         LOG.info("The result of the method {} is {}", joinPoint.getSignature(), result);
         return result;
@@ -40,8 +39,6 @@ public class LoggingAspect {
     }
     @Around("bean(*Dao*)")
     public Object loggingDao(ProceedingJoinPoint joinPoint) throws Throwable {
-        LOG.info("Starting method {} of object {} with arguments {}", joinPoint.getSignature(),
-                joinPoint.getTarget(), Arrays.toString(joinPoint.getArgs()));
         Object result = joinPoint.proceed();
         LOG.info("The result of the method {} is {}", joinPoint.getSignature(), result);
         return result;

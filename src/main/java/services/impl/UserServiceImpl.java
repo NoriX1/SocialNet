@@ -1,6 +1,8 @@
 package services.impl;
 
 import dao.DataDao;
+import dao.MessageDao;
+import dao.UserDao;
 import model.Message;
 import model.User;
 import org.apache.commons.lang.StringUtils;
@@ -9,19 +11,22 @@ import services.UserService;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-    private final DataDao dataDao;
+    private final MessageDao messageDao;
+    private final UserDao userDao;
 
-    public UserServiceImpl(DataDao dataDao){
-        this.dataDao = dataDao;
+    public UserServiceImpl(UserDao userDao, MessageDao messageDao){
+        this.userDao = userDao;
+        this.messageDao = messageDao;
+
     }
 
     @Override
     public User getUserById(int id) {
-        return dataDao.findUserInBD(id);
+        return userDao.findUserById(id);
     }
 
     public List<Message> getListOfPrivateMessages(int id){
-        return dataDao.getPrivateMessagesFromBD(id);
+        return messageDao.getPrivateMessagesFromBD(id);
     }
     public String getNameOfUserById(int id){
         User user = getUserById(id);
@@ -34,7 +39,7 @@ public class UserServiceImpl implements UserService {
         }
         else {
             user.setName(newname);
-            dataDao.saveUser(user);
+            userDao.saveUser(user);
         }
     }
 }

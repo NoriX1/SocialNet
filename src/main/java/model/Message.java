@@ -1,6 +1,7 @@
 package model;
 
 public class Message {
+    private Integer targetid;
     private User owner;
     private String message;
     private User target;
@@ -8,6 +9,7 @@ public class Message {
 
     public Message(User owner, String message, User target, Boolean isPrivate) {
         this.owner = owner;
+        this.targetid = target.getId();
         this.message = message;
         this.target = target;
         this.isPrivate = isPrivate;
@@ -15,6 +17,7 @@ public class Message {
 
     public Message(User owner, String message, User target) {
         this.owner = owner;
+        this.targetid = target.getId();
         this.message = message;
         this.target = target;
         this.isPrivate = true;
@@ -32,12 +35,31 @@ public class Message {
         this.isPrivate = false;
     }
 
+    public Message() {
+        this.owner = new User("Annonymous");
+        this.message = "";
+        this.isPrivate = false;
+        this.target = new User("Name");
+    }
+
     public User getOwner() {
         return owner;
     }
 
     public String getMessage() {
         return message;
+    }
+
+    public Integer getTargetid(){
+        return  targetid;
+    }
+
+    public void setTargetid(int id){
+        this.targetid = id;
+    }
+
+    public void setTarget(User user){
+        this.target = user;
     }
 
     public User getTarget() {

@@ -63,7 +63,8 @@ public class RatingService {
                     points += wordTop.get(word);
                 }
             }
-            rating.put(mes.getOwner().getName()+" "+mes.getOwner().getSurname()+": "+mes.getMessage(),points);
+            rating.put("id="+mes.getOwner().getId()+" "+mes.getOwner().getName()+" "+
+                    mes.getOwner().getSurname()+": "+mes.getMessage(),points);
             points = 0;
         }
 
