@@ -1,0 +1,53 @@
+.stuff{
+    text-align: center;
+}
+.profile__title, .profile__name{
+    display: inline-block;
+    
+}
+.profile{
+    width: 500px;
+    display: inline-block;
+    text-align: left;
+}
+.profile__list{
+    background-color:white;
+    padding: 20px;
+    border-radius: 10px; 
+    border: 3px solid $blue;
+}
+.profile__item{
+    border-bottom: 1px solid $blue;
+    padding: 10px;
+}
+.profile__item_title{
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+}
+.profile__name{
+    font-weight: bold;
+}
+.form-button{
+    display: block;
+    margin: 0 auto;
+    outline: none;
+    background-color: white;
+    border: 2px solid $blue;
+    border-radius: 20px;
+    padding: 5px 20px;
+    &:hover{
+        background-color: $blue;
+        color:white;
+    }
+    &:active{
+        box-shadow: 0px 2px 5px 0px rgba(#000, .3) inset;
+    }
+}
+.profile__logout{
+    color:black;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    width: 100px;
+}

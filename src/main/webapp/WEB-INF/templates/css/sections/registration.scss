@@ -1,0 +1,34 @@
+.registration-block{
+    float: left;
+    text-align: right;
+    background-color: white;
+    border: 3px solid $blue;
+    border-radius: 20px;
+    padding: 20px;
+    padding-bottom: 0px;
+    margin-left: 100px;
+}
+
+.registration-block__title{
+    text-align: center;
+}
+.registration-block__li{
+    &:last-child{
+        border-bottom: none;
+    }
+}
+.registration-block__li{
+    display: block;
+    padding: 10px;
+    border-bottom: 1px solid $blue;
+}
+.registration-block__name{
+    display: inline-block;
+}
+.registration-block__input, .input-field{
+    display: inline-block;
+    border: 2px solid $blue;
+    padding: 5px;
+    border-radius: 15px;
+    outline: none;
+}

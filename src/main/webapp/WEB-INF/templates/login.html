@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru-RU" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>SocialNetwork</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=960"/>
+    <link rel="stylesheet" th:href="@{/resources/css/main.css}"/>
+    <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+<!--[if lt IE 9]>
+   <p class="browsehappy">Ваш браузер <strong>устарел</strong>. Пожалуйста <a href="http://browsehappy.com/">обновите</a></p>
+<![endif]-->
+    <div class="wrapper">
+        <div class="maincontent">
+            <header class="header">
+                <div class="container clearfix">
+                    <div class="header__left">
+                        <div class="user__avatar">
+                            <img th:src="@{/resources/img/user/avatar.jpg}" alt="avatar" class="user__image"/>
+                        </div>
+                        <div class="user__name">Social Network</div>
+                    </div>
+                    <div class="header__right">
+                        <a class="registration" href="registration.html">
+                            Registration
+                        </a>
+                    </div>
+                </div>
+            </header>
+            <div class="content">
+                <div class="container clearfix">
+                    <aside class="aside">
+                        <div class="nav">
+                            <ul class="nav__ul">
+                                <li class="nav__li"><a href="index.html" class="nav__link"><span class="nav__text">Home page</span></a></li>
+                                <li class="nav__li nav__li_selected"><a href="login.html" class="nav__link"><span class="nav__text">Login</span></a></li>
+                                <li class="nav__li"><a href="profile.html" class="nav__link"><span class="nav__text">Profile</span></a></li>
+                                <li class="nav__li"><a href="messages.html" class="nav__link"><span class="nav__text">Show messages</span></a></li>
+                                <li class="nav__li"><a href="sendmessages.html" class="nav__link"><span class="nav__text">Send message</span></a></li>
+                                <li class="nav__li"><a href="friendlist.html" class="nav__link"><span class="nav__text">My friends</span></a></li>
+                                <li class="nav__li"><a href="rating.html" class="nav__link"><span class="nav__text">Rating Service</span></a></li>
+                                <li class="nav__li"><a href="finduser.html" class="nav__link"><span class="nav__text">Find User</span></a></li>
+                            </ul>
+                        </div>
+                    </aside>
+                    <main class="stuff">
+                        <form th:object="${user}" method="post" class="login-form">
+                            <li class="login-form__li">
+                                    <div class="login-form__name">Enter Login:</div>
+                                    <input type="text" th:field="*{login}" class="login-form__input input-field" placeholder="Login"/>
+                                </li>
+                                <li class="login-form__li">
+                                    <div class="login-form__name">Enter Password:</div>
+                                    <input type="password" th:field="*{password}" class="login-form__input input-field" placeholder="Password"/>
+                                </li>
+                                <li class="registration-block__li">
+                                    <input class="registration-block__input-sumbit form-button" type="submit"/>
+                                </li>
+                        </form>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__left">
+                <div class="copyright">©SocialNetwork</div>
+            </div>
+            <div class="footer__right">
+                <ul class="social__ul">
+                    <li class="social__li"><a href="https://twitter.com" class="social__link social__link_tw"></a></li>
+                    <li class="social__li"><a href="https://vk.com/" class="social__link social__link_vk"></a></li>
+                    <li class="social__li"><a href="https://www.facebook.com" class="social__link social__link_fb"></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

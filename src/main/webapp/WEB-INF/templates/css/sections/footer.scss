@@ -1,0 +1,38 @@
+.footer{
+    background: $black;
+}
+.footer__left{
+    padding-top: 15px;
+    width: 50%;
+    float: left;
+}
+.copyright{
+   font-weight: lighter;
+    display: inline-block;
+    color: $grey;
+    font-size: 14px;
+}
+.footer__right{
+    width: 50%;
+    float: right;
+    text-align: right;
+}
+
+
+.social__link {
+	width: 32px;
+	height: 32px;
+	display: block;
+    float: right;
+    margin: 10px 5px 0px 0px;
+}
+
+@each $social in (vk, fb, tw) {
+	.social__link_#{$social} {
+		background: url('../img/icons/#{$social}.png') 0 0 no-repeat;
+		
+		&:hover {
+			background: url('../img/icons/#{$social}_hover.png') 0 0 no-repeat;
+		}
+	}
+} 

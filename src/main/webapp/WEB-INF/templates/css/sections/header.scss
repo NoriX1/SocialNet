@@ -1,0 +1,75 @@
+.header{
+    height: 80px;
+    background-color: white;
+    box-shadow: 0px 1px 3px 0px rgba(#000, 0.2);
+    margin-bottom: 25px;
+    font-size: 18px;
+}
+.header__left, .header__right{
+    display: block;
+}
+.header__left{
+    float: left;
+    padding: 8px 0px 0px;
+}
+.header__right{
+   float: right;
+}
+.user__avatar{
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15px;
+}
+.user__image{
+    border-radius: 50%;
+    width: 58px;
+    border: 2px solid #bebebe;
+}
+.user__name{
+    display: inline-block;
+    vertical-align: middle;
+}
+.registration{
+    display: block;
+    text-decoration: none;
+    color: $blue;
+    border-bottom: 2px dotted $blue;
+    margin-top: 25px;
+    cursor: pointer;
+    position: relative;
+    &:hover{
+        color: $red;
+        border-color: $red;
+    }
+}
+.contacts__panel{
+    display: none;
+    min-height: 135px;
+    min-width: 190px;
+    max-width: 300px;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #dedede;
+    left:-40px;
+    top:40px;
+    border-radius: 10px;
+    z-index: 2;
+}
+.contacts__block{
+    padding: 15px 15px;
+    font-size: 18px;
+    border-bottom: 1px solid #dedede;
+    color:$grey;
+    vertical-align: middle;
+    &:last-child{
+        border-bottom: 1px solid transparent;
+    }
+    .fa{
+        color: $blue;
+        display: inline;
+    }
+}
+.main__img{
+    border-radius: 50%;
+    width: 400px;
+}

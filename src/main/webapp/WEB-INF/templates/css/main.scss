@@ -1,0 +1,28 @@
+// vars
+$footer_height:50px;
+$container_width:940px;
+$body_font-size:16px;
+$body_line-height:1.42;
+$maincontent_padding-bottom: 50px;
+
+$grey: #727272;
+$black: #414141;
+$white: #f6f6f6;
+$blue: #33c1e3;
+$red: #e85f61;
+
+// layout
+@import"_misc/mixins";
+@import "_misc/normalize";
+@import "_misc/adjustment";
+
+// styles
+@import "sections/header";
+@import "sections/sidebar";
+@import "sections/footer";
+@import "sections/registration";
+@import "sections/profile";
+@import "sections/login";
+@import "sections/messages";
+@import "sections/rating";
+@import "sections/error";

@@ -1,0 +1,13 @@
+@mixin box-shadow($params){
+    box-shadow: $params;
+    -webkit-box-shadow: $params;
+    -moz-box-shadow: $params;
+}
+
+%clearfix{
+    &:after{
+        content: "";
+        display: block;
+        clear: both;
+    }
+}

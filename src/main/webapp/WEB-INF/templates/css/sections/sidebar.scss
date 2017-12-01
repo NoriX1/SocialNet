@@ -1,0 +1,38 @@
+.aside{
+    width: 220px;
+    text-align: right;
+    float: left;
+    font-size: 18px;
+    margin-right: 20px;
+}
+.nav__li{
+    padding:10px 25px 10px 0px;
+    border-right: 6px solid transparent;
+    cursor: pointer;
+    &:hover .nav__link{
+        color: $blue;
+    }
+    &:active{
+        border-right: 6px solid $blue;
+    }
+    &:active .nav__link{
+        color: $blue;
+    }
+}
+.nav__li{
+    &.nav__li_selected{
+        border-right: 6px solid $blue;
+    }
+    &.nav__li_selected .nav__link{
+        color: $blue;
+        font-weight: bold;
+    } 
+}
+.nav__link{
+    text-decoration: none;
+    outline: none;
+    color: $black;
+}
+.fa{
+    padding: 0px 10px 0px 0px;
+}

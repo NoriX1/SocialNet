@@ -5,7 +5,6 @@ import dao.BaseDao;
 import dao.MessageDao;
 import dao.UserDao;
 import model.Message;
-import model.User;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

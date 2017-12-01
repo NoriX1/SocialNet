@@ -1,0 +1,18 @@
+.error{
+    float: left;
+    background-color: white;
+    padding: 20px;
+    border: 3px solid $blue;
+    border-radius: 20px;
+    width: 600px;
+    overflow: hidden;
+    margin: 20px;
+}
+.error__title{
+    font-size: 40px;
+    color: $blue;
+    font-weight: bold;
+}
+.error__desc{
+    font-size: 20px;
+}

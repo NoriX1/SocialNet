@@ -1,0 +1,96 @@
+.messages{
+    display: block;
+    float: left;
+    width: 70%;
+    position: relative;
+}
+.messages__title, .content-title{
+    font-size: 30px;
+    font-weight: bold;
+}
+.messages__public, .messages__private, .users__list, .sent__form{
+    background-color: white;
+    border: 3px solid $blue;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px 10px 20px 20px;
+}
+.messages__public-title, .messages__private-title{
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid $blue;
+}
+.messages__list-public{
+    text-align: left;
+}
+.messages__list-private{
+    text-align: right;
+    
+}
+.messages__item{
+    border: 2px solid $blue;
+    margin: 10px;
+    margin-bottom: 0px;
+    display: inline-block;
+    width: 45%;
+    padding: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.messages__item-public{
+   text-align: left;
+    display: inline-block;
+}
+.messages__item-private{
+   text-align: left;
+    display: inline-block;
+}
+.message__from, .message__from-title{
+    display: inline-block;
+    font-weight: bold;
+}
+
+.sendmessage{
+    float: left;
+}
+.users__title, .sent__title{
+    font-size: 20px;
+}
+.users__list{
+    width: 600px;
+}
+.users__item{
+    border: 2px solid $blue;
+    display: inline-block;
+    max-width: 45%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.users__text{
+    padding: 5px;
+}
+.sent__id{
+    display: inline-block;
+}
+.sent__input-area{
+    display: block;
+    margin: 10px auto;
+    width: 500px;
+    height: 100px;
+    resize: none;
+    outline: none;
+    border: 2px solid $blue;
+    border-radius: 10px;
+}
+.sent__input{
+    margin: 10px;
+}
+.sendmessage{
+    margin-left: 10px;
+}
+.find__user{
+    margin-left: 100px;
+}
+.find__form{
+    padding: 20px;
+}
