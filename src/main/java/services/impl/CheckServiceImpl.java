@@ -2,7 +2,7 @@ package services.impl;
 
 import dao.MessageDao;
 import dao.UserDao;
-import model.Network;
+import model.Message;
 import model.User;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -54,5 +54,32 @@ public class CheckServiceImpl implements CheckService {
                 return false;
         }
         else return true;
+    }
+
+    @Override
+    public Boolean checkMessageOnPrivate(Message message) {
+        try{
+            int targetid = message.getTargetid();
+        }catch (NullPointerException e){
+            LOG.info("Cathed exception {} : it is a public message",e);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean checkMessageOnErrors(Message message){
+        if(message.getOwner() == null) return false;
+        if(StringUtils.isBlank(message.getMessage())) return false;
+        if(message.isPrivate() == true){
+            try{
+                message.getOwner();
+            }
+            catch (NullPointerException e){
+                LOG.info("Private message must have owner",e);
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -80,21 +80,21 @@ public class MessageController {
             }
         }
         User owner = userDao.findUserById(userid);
-        if(messageDao.checkMessageOnPrivate(message)){
+        if(checkService.checkMessageOnPrivate(message)){
             if(!checkService.checkUserForErrors(userDao.findUserById(message.getTargetid()),false)){
                 return "redirect:/id={id}/error_User is not exist";
             }
             int targetid = message.getTargetid();
             User target = userDao.findUserById(targetid);
             Message sendedmessage = new Message(owner, message.getMessage(),target, true);
-            if(!messageDao.checkMessageOnErrors(sendedmessage)) return "redirect:/error_Message is blank";
+            if(!checkService.checkMessageOnErrors(sendedmessage)) return "redirect:/id={id}/error_Message is blank";
             messageDao.savePrivateMessageToBD(sendedmessage);
             LOG.info("Saved private message to BD");
             return "redirect:/id={id}/sendmessages";
         }
         else{
             Message sendedmessage = new Message(owner, message.getMessage());
-            if(!messageDao.checkMessageOnErrors(sendedmessage)) return "redirect:/error_Message is_blank";
+            if(!checkService.checkMessageOnErrors(sendedmessage)) return "redirect:/id={id}/error_Message is blank";
             messageDao.savePublicMessageToBD(sendedmessage);
             LOG.info("Saved public message to BD");
             return "redirect:/id={id}/sendmessages";

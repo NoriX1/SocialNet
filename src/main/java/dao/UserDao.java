@@ -14,5 +14,6 @@ public interface UserDao {
     List<User> getUserListFromNetwork();
     void saveFriendToFriendlistBD(int who, int whom);
     public List<User> loadFriendListFromBD(int userID);
+    public int countFriendsInDB();
 
 }

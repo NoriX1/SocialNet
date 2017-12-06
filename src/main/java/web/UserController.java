@@ -96,7 +96,7 @@ public class UserController {
         LOG.info("Got user: {}", user);
         user.setId(count);
         if (!checkService.checkUserForErrors(user, true)){
-            return "redirect:/id={id}/error_This login is exist";
+            return "redirect:/id=null/error_This login is exist";
         }
         userDao.saveUser(user);
         model.addAttribute("id", user.getId());
@@ -122,6 +122,7 @@ public class UserController {
             model.addAttribute("userList", userList);
             model.addAttribute("id", "id=");
             model.addAttribute("space", " ");
+            userDao.countFriendsInDB();
             return "friendlist";
         }
         else{
@@ -138,7 +139,7 @@ public class UserController {
             return "redirect:/id={ab}/friendlist";
         }
         else{
-            return "redirect:/id={id}/error_User is not exist";
+            return "redirect:/id={ab}/error_User is not exist";
         }
 
     }

@@ -12,7 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+//@Service
 public class MessageDaoImpl extends BaseDao implements MessageDao{
     private static Logger LOG = LogManager.getLogger();
 
@@ -33,6 +33,7 @@ public class MessageDaoImpl extends BaseDao implements MessageDao{
             statement.execute(createusertable);
 
             String createmessagetable = "CREATE TABLE IF NOT EXISTS messages ("+
+                    "id INT(11) PRIMARY KEY,"+
                     "owner INT(11),"+
                     "message VARCHAR(1500),"+
                     "target INT(11),"+
@@ -40,6 +41,7 @@ public class MessageDaoImpl extends BaseDao implements MessageDao{
             statement.execute(createmessagetable);
 
             String createfriendtable = "CREATE TABLE IF NOT EXISTS friendlist ("+
+                    "id INT(11) PRIMARY KEY,"+
                     "who INT(11),"+
                     "whom INT(11))";
             statement.execute(createfriendtable);
@@ -60,10 +62,10 @@ public class MessageDaoImpl extends BaseDao implements MessageDao{
             statement.setInt(1, 0);
             resultSet = statement.executeQuery();
             while (resultSet.next()){
-                messages.add(new Message(userDao.findUserById(resultSet.getInt(1)),
-                        resultSet.getString(2),
-                        userDao.findUserById(resultSet.getInt(3)),
-                        resultSet.getBoolean(4)));
+                messages.add(new Message(userDao.findUserById(resultSet.getInt(2)),
+                        resultSet.getString(3),
+                        userDao.findUserById(resultSet.getInt(4)),
+                        resultSet.getBoolean(5)));
             }
             return messages;
         } catch (SQLException e) {
@@ -82,10 +84,10 @@ public class MessageDaoImpl extends BaseDao implements MessageDao{
             statement.setInt(2, 1);
             resultSet = statement.executeQuery();
             while (resultSet.next()){
-                messages.add(new Message(userDao.findUserById(resultSet.getInt(1)),
-                        resultSet.getString(2),
-                        userDao.findUserById(resultSet.getInt(3)),
-                        resultSet.getBoolean(4)));
+                messages.add(new Message(userDao.findUserById(resultSet.getInt(2)),
+                        resultSet.getString(3),
+                        userDao.findUserById(resultSet.getInt(4)),
+                        resultSet.getBoolean(5)));
             }
             return messages;
         } catch (SQLException e) {
@@ -96,14 +98,15 @@ public class MessageDaoImpl extends BaseDao implements MessageDao{
     @Override
     public void savePublicMessageToBD(Message message){
 
-        String sql = "INSERT INTO messages (owner, message, isPrivate) VALUES (?,?,?)";
+        String sql = "INSERT INTO messages (id ,owner, message, isPrivate) VALUES (?,?,?,?)";
 
         try(Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)
         ){
-            statement.setInt(1,message.getOwner().getId());
-            statement.setString(2, message.getMessage());
-            statement.setBoolean(3,false);
+            statement.setInt(1,countMessagesInDB());
+            statement.setInt(2,message.getOwner().getId());
+            statement.setString(3, message.getMessage());
+            statement.setBoolean(4,false);
             statement.execute();
             connection.commit();
 
@@ -114,14 +117,15 @@ public class MessageDaoImpl extends BaseDao implements MessageDao{
 
     @Override
     public void savePrivateMessageToBD(Message message){
-        String sql = "INSERT INTO messages (owner, message, target, isPrivate) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO messages (id ,owner, message, target, isPrivate) VALUES (?,?,?,?,?)";
         try(Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)
         ){
-            statement.setInt(1,message.getOwner().getId());
-            statement.setString(2, message.getMessage());
-            statement.setInt(3, message.getTarget().getId());
-            statement.setBoolean(4, message.isPrivate());
+            statement.setInt(1,countMessagesInDB());
+            statement.setInt(2,message.getOwner().getId());
+            statement.setString(3, message.getMessage());
+            statement.setInt(4, message.getTarget().getId());
+            statement.setBoolean(5, message.isPrivate());
             statement.execute();
             connection.commit();
 
@@ -130,30 +134,30 @@ public class MessageDaoImpl extends BaseDao implements MessageDao{
         }
     }
 
-    @Override
-    public Boolean checkMessageOnPrivate(Message message) {
-        try{
-            int targetid = message.getTargetid();
-        }catch (NullPointerException e){
-            LOG.info("Cathed exception {} : it is a public message",e);
-            return false;
-        }
-        return true;
-    }
 
     @Override
-    public Boolean checkMessageOnErrors(Message message){
-        if(message.getOwner() == null) return false;
-        if(StringUtils.isBlank(message.getMessage())) return false;
-        if(message.isPrivate() == true){
-            try{
-                message.getOwner();
+    public int countMessagesInDB(){
+        String sql = "SELECT COUNT(1) FROM messages";
+        ResultSet resultSet;
+        int count = 0;
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)) {
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                count = resultSet.getInt(1);
+
             }
-            catch (NullPointerException e){
-                LOG.info("Private message must have owner",e);
-                return false;
+            if (count == 0){
+                LOG.info("count of messages = "+count);
+                LOG.info("ERROR");
+                throw new RuntimeException("ERROR, 0 messages in network");
             }
+            else{
+                LOG.info("count of messages = "+count);
+                return count;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException();
         }
-        return true;
     }
 }

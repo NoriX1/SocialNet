@@ -28,6 +28,7 @@ public class DataDaoImpl extends BaseDao implements DataDao {
             statement.execute(createusertable);
 
             String createmessagetable = "CREATE TABLE IF NOT EXISTS messages ("+
+                    "id INT(11) PRIMARY KEY," +
                     "owner INT(11),"+
                     "message VARCHAR(1500),"+
                     "target INT(11),"+
@@ -35,6 +36,7 @@ public class DataDaoImpl extends BaseDao implements DataDao {
             statement.execute(createmessagetable);
 
             String createfriendtable = "CREATE TABLE IF NOT EXISTS friendlist ("+
+                    "id INT(11) PRIMARY KEY,"+
                     "who INT(11),"+
                     "whom INT(11))";
             statement.execute(createfriendtable);

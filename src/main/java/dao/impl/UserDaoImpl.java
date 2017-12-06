@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-@Service
+//@Service
 public class UserDaoImpl extends BaseDao implements UserDao {
     private static Logger LOG = LogManager.getLogger();
 
@@ -38,6 +38,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             statement.execute(createmessagetable);
 
             String createfriendtable = "CREATE TABLE IF NOT EXISTS friendlist ("+
+                    "id INT(11) PRIMARY KEY,"+
                     "who INT(11),"+
                     "whom INT(11))";
             statement.execute(createfriendtable);
@@ -132,6 +133,27 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     }
 
     @Override
+    public int countFriendsInDB(){
+        String sql = "SELECT COUNT(1) FROM friendlist";
+        ResultSet resultSet;
+        int count = 0;
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)) {
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                count = resultSet.getInt(1);
+
+            }
+
+                LOG.info("count of users = "+count);
+                return count;
+
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
     public Boolean checkLoginForExisting(User checkuser){
         User user = new User();
         String sql = "SELECT * FROM users WHERE login = (?)";
@@ -173,7 +195,6 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 if (i.getLogin().toLowerCase().equals(login.toLowerCase())){
                     finded = true;
                     if(i.getPassword().equals(password)){
-                        i.setIslogged(true);
                         LOG.info("User {} is logged", i);
                         return Integer.toString(i.getId()) ;
                     }
@@ -202,12 +223,13 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public void saveFriendToFriendlistBD(int who, int whom){
-        String sql = "INSERT INTO friendlist (who, whom) VALUES (?,?)";
+        String sql = "INSERT INTO friendlist (id ,who, whom) VALUES (?,?,?)";
         try(Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)
         ){
-            statement.setInt(1,who);
-            statement.setInt(2, whom);
+            statement.setInt(1,countFriendsInDB());
+            statement.setInt(2,who);
+            statement.setInt(3, whom);
             statement.execute();
             connection.commit();
 
@@ -229,7 +251,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             boolean finded = false;
 
             while (resultSet.next()){
-                id = resultSet.getInt(2);
+                id = resultSet.getInt(3);
                 for(User i : getUserListFromNetwork()){
                     if (i.getId() == id){
                         friendList.add(i);
