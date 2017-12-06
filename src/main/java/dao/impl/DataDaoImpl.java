@@ -1,28 +1,15 @@
 package dao.impl;
 
-import commands.Receiver;
 import dao.BaseDao;
 import dao.DataDao;
-import model.Message;
-import model.Network;
 import model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 @Service
 public class DataDaoImpl extends BaseDao implements DataDao {
-    private final Receiver receiver;
-
-    @Autowired
-    public DataDaoImpl(Receiver receiver){
-        this.receiver = receiver;
-    }
 
     @Override
     public void createTableIfNotExist(){
@@ -59,11 +46,11 @@ public class DataDaoImpl extends BaseDao implements DataDao {
     }
 
     @Override
-    public void getUsersFromBD(){
-        Network network = receiver.getNetwork();
+    public List<User> getUsersFromBD(){
         String sql = "SELECT * FROM users";
         ResultSet resultSet;
         Boolean finded = false;
+        List<User> userList = new LinkedList<>();
         try(Connection connection = getConnection();
         PreparedStatement statement = connection.prepareStatement(sql)) {
             resultSet = statement.executeQuery();
@@ -73,18 +60,19 @@ public class DataDaoImpl extends BaseDao implements DataDao {
                         resultSet.getString(3), resultSet.getInt(4),
                         resultSet.getString(5), resultSet.getString(6),
                         resultSet.getString(7));
-                for(User i : network.getUserList()){
+                for(User i : userList){
                     if (i.getId() == user.getId()){
                         finded = true;
                     }
                 }
                 if(finded == false){
-                    network.addUser(user);
+                    userList.add(user);
                 }
                 else{
                     continue;
                 }
             }
+            return userList;
         } catch (SQLException e) {
             throw new RuntimeException();
         }

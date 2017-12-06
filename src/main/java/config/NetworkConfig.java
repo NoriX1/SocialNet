@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @Configuration
-@ComponentScan({"model","commands","services","dao","config"})
+@ComponentScan({"model","services","dao","config"})
 @EnableAspectJAutoProxy
 public class NetworkConfig {
 }

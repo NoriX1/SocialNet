@@ -1,32 +1,18 @@
 package dao.impl;
-
-import commands.Receiver;
 import dao.BaseDao;
 import dao.DataDao;
 import dao.UserDao;
-import model.Network;
 import model.User;
-import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.sql.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
 public class UserDaoImpl extends BaseDao implements UserDao {
     private static Logger LOG = LogManager.getLogger();
-    private final Receiver receiver;
-
-
-    @Autowired
-    public UserDaoImpl(Receiver receiver){
-        this.receiver = receiver;
-    }
 
     @Override
     protected void createTableIfNotExist() {
@@ -177,98 +163,41 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     }
 
     @Override
-    public Boolean checkUserForErrors(User checkuser, Boolean checklogin){
-        if (checkuser == null){
-            LOG.info("ERROR: User is null");
-            return false;
-        }
-        String login = checkuser.getLogin();
-        String name = checkuser.getName();
-        String password = checkuser.getPassword();
-        String surname = checkuser.getSurname();
-        if (StringUtils.isBlank(login) || StringUtils.isBlank(name) ||
-                StringUtils.isBlank(password) || StringUtils.isBlank(surname) ){
-            LOG.info("ERROR: User {} is broken!", checkuser);
-            return false;
-        }
-        if(checklogin){
-            if(checkLoginForExisting(checkuser)){
-                return true;
-            }
-            else
-                return false;
-        }
-        else return true;
-    }
-
-    @Override
-    public Boolean loggingIn(String login, String password){
+    public String loggingIn(String login, String password){
         {
-            DataDao dataDao = new DataDaoImpl(receiver);
-            dataDao.getUsersFromBD();
+            DataDao dataDao = new DataDaoImpl();
             LOG.info("Logging in: ");
             boolean finded = false;
-            Network network = receiver.getNetwork();
-            List<User> userList = network.getUserList();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            List<User> userList = getUserListFromNetwork();
             for(User i : userList){
                 if (i.getLogin().toLowerCase().equals(login.toLowerCase())){
                     finded = true;
                     if(i.getPassword().equals(password)){
                         i.setIslogged(true);
-                        network.setCurrentUser(i);
                         LOG.info("User {} is logged", i);
-                        return true;
+                        return Integer.toString(i.getId()) ;
                     }
                     else{
                         LOG.info("Incorrect password");
-                        return false;
+                        return "null";
 
                     }
                 }
             }
             if (!finded) {
                 LOG.info("Login does not exist!");
-                return false;
+                return "null";
             }
             finded = false;
         }
-        return false;
+        return "null";
     }
 
-    @Override
-    public Boolean isUserLogged(){
-        Network network = receiver.getNetwork();
-        try{
-            User user = network.getCurrentUser();
-            LOG.info("Finded Logged User: {} ({})", user, user.toString());
-        }catch (NullPointerException e){
-            LOG.info("Cathed exception {} : no one is logged.",e);
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int getCurrentUserID(){
-        Network network = receiver.getNetwork();
-        User user = network.getCurrentUser();
-        return user.getId();
-    }
-
-    @Override
-    public void logoutUser(){
-        Network network = receiver.getNetwork();
-        network.setCurrentUser(null);
-        LOG.info("User logged out");
-    }
 
     @Override
     public List<User> getUserListFromNetwork(){
-        DataDao dataDao = new DataDaoImpl(receiver);
-        dataDao.getUsersFromBD();
-        Network network = receiver.getNetwork();
-        return network.getUserList();
+        DataDao dataDao = new DataDaoImpl();
+        return dataDao.getUsersFromBD();
     }
 
     @Override
@@ -288,35 +217,28 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     }
 
     @Override
-    public void loadFriendListFromBD(User currentUser){
+    public List<User> loadFriendListFromBD(int userID){
         String sql = "SELECT * FROM friendlist WHERE who = (?)";
         ResultSet resultSet;
-        Network network = receiver.getNetwork();
+        List<User> friendList = new LinkedList<>();
         int id;
         try(Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, currentUser.getId());
+            statement.setInt(1, userID);
             resultSet = statement.executeQuery();
             boolean finded = false;
+
             while (resultSet.next()){
                 id = resultSet.getInt(2);
-                for (User i : currentUser.getFriendlist())
-                {
-                    if(i.getId() == id){
-                        finded = true;
-                    }
-                }
-                if (!finded){
-                    for(User i : network.getUserList()){
-                        if (i.getId() == id){
-                            currentUser.addFriend(i);
-                        }
+                for(User i : getUserListFromNetwork()){
+                    if (i.getId() == id){
+                        friendList.add(i);
                     }
                 }
             }
+            return friendList;
         } catch (SQLException e) {
             throw new RuntimeException();
         }
-
     }
 }

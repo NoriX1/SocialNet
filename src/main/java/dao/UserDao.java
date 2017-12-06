@@ -9,14 +9,10 @@ public interface UserDao {
     User findUserById(int id);
     String userToString(User user);
     int countUserInDB();
-    Boolean checkUserForErrors(User checkuser, Boolean checklogin);
     Boolean checkLoginForExisting(User checkuser);
-    Boolean loggingIn(String login, String password);
-    int getCurrentUserID();
-    Boolean isUserLogged();
-    void logoutUser();
+    String loggingIn(String login, String password);
     List<User> getUserListFromNetwork();
     void saveFriendToFriendlistBD(int who, int whom);
-    void loadFriendListFromBD(User currentUser);
+    public List<User> loadFriendListFromBD(int userID);
 
 }

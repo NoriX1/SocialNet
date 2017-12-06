@@ -1,6 +1,4 @@
 package dao.impl;
-
-import commands.Receiver;
 import dao.BaseDao;
 import dao.MessageDao;
 import dao.UserDao;
@@ -17,11 +15,6 @@ import java.util.List;
 @Service
 public class MessageDaoImpl extends BaseDao implements MessageDao{
     private static Logger LOG = LogManager.getLogger();
-    private final Receiver receiver;
-
-    public MessageDaoImpl(Receiver receiver) {
-        this.receiver = receiver;
-    }
 
     @Override
     protected void createTableIfNotExist() {
@@ -58,7 +51,7 @@ public class MessageDaoImpl extends BaseDao implements MessageDao{
 
     @Override
     public List<Message> getPublicMessagesFromBD(){
-        UserDao userDao = new UserDaoImpl(receiver);
+        UserDao userDao = new UserDaoImpl();
         String sql = "SELECT * FROM messages WHERE isprivate = (?)";
         ResultSet resultSet;
         List<Message> messages = new ArrayList<>();
@@ -79,7 +72,7 @@ public class MessageDaoImpl extends BaseDao implements MessageDao{
     }
     @Override
     public List<Message> getPrivateMessagesFromBD(int id){
-        UserDao userDao = new UserDaoImpl(receiver);
+        UserDao userDao = new UserDaoImpl();
         String sql = "SELECT * FROM messages WHERE target = (?) AND isprivate = (?)";
         ResultSet resultSet;
         List<Message> messages = new ArrayList<>();
